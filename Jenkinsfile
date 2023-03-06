@@ -13,5 +13,16 @@ pipeline{
                 sh 'mvn package'
             }
         }
+        stage('Archieve Artifact'){
+            steps{
+                archiveArtifacts artifacts: '**/target/spring-petclinic-3.0.0-SNAPSHOT.jar',
+                        onlyIfSuccessful: true
+            }
+        }
+        stage('Test Results'){
+            steps{
+                junit testResults: '**/surefire-reports/TEST-*.xml'
+            }
+        }
     }
 }
