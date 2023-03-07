@@ -16,7 +16,7 @@ pipeline{
         stage('sonar analysis') {
             steps {
                 // performing sonarqube analysis with "withSonarQubeENV(<Name of Server configured in Jenkins>)"
-                withSonarQubeEnv('SONAR_CLOUD') {
+                withSonarQubeEnv('SonarCloud') {
                     sh 'mvn clean package sonar:sonar -Dsonar.organization=springpetclinic3 -Dsonar.projectKey=springpetclinic3'
                 }
             }
