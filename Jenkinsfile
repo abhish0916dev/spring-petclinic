@@ -8,42 +8,42 @@ pipeline{
                     branch: 'declarative'
             }
         }
-        stage ('Artifactory configuration') {
-            steps {
-                rtServer (
-                    id: "ARTIFACTORY_SERVER",
-                    url: 'https://abhish9416.jfrog.io/',
-                    credentialsId: 'JFORG_CLOUD_PASSWD'
-                )
+        // stage ('Artifactory configuration') {
+        //     steps {
+        //         rtServer (
+        //             id: "ARTIFACTORY_SERVER",
+        //             url: 'https://abhish9416.jfrog.io/',
+        //             credentialsId: 'JFORG_CLOUD_PASSWD'
+        //         )
 
-                rtMavenDeployer (
-                    id: "MAVEN_DEPLOYER",
-                    serverId: "ARTIFACTORY_SERVER",
-                    releaseRepo: 'libs-release',
-                    snapshotRepo: 'libs-snapshot'
-                )
+        //         rtMavenDeployer (
+        //             id: "MAVEN_DEPLOYER",
+        //             serverId: "ARTIFACTORY_SERVER",
+        //             releaseRepo: 'libs-release',
+        //             snapshotRepo: 'libs-snapshot'
+        //         )
 
-                rtMavenResolver (
-                    id: "MAVEN_RESOLVER",
-                    serverId: "ARTIFACTORY_SERVER",
-                    releaseRepo: 'libs-release',
-                    snapshotRepo: 'libs-snapshot'
-                )
-            }
-        }
+        //         rtMavenResolver (
+        //             id: "MAVEN_RESOLVER",
+        //             serverId: "ARTIFACTORY_SERVER",
+        //             releaseRepo: 'libs-release',
+        //             snapshotRepo: 'libs-snapshot'
+        //         )
+        //     }
+        // }
         stage('BUILD'){
             steps{
-                rtMavenRun (
-                    tool: 'MAVEN_3.6.3', // Tool name from Jenkins configuration
-                    pom: 'pom.xml',
-                    goals: 'clean install',
-                    deployerId: "MAVEN_DEPLOYER",
-                    // resolverId: "MAVEN_RESOLVER"
-                )
-                rtPublishBuildInfo (
-                    serverId: "ARTIFACTORY_SERVER"
-                )
-                // sh 'mvn package'
+                // rtMavenRun (
+                //     tool: 'MAVEN_3.6.3', // Tool name from Jenkins configuration
+                //     pom: 'pom.xml',
+                //     goals: 'clean install',
+                //     deployerId: "MAVEN_DEPLOYER",
+                //     // resolverId: "MAVEN_RESOLVER"
+                // )
+                // rtPublishBuildInfo (
+                //     serverId: "ARTIFACTORY_SERVER"
+                // )
+                sh 'mvn package'
             }
         }
         stage('sonar analysis') {
