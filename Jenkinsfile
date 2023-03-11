@@ -8,6 +8,13 @@ pipeline{
                 branch: 'release'
             }
         }
+        stage('SonarQube analysis') {
+            steps{
+                withSonarQubeEnv('Sonar_Cloud'){
+                    sh ' mvn sonar:sonar -D sonar.organization=springpetclinic16 -Dsonar.projectKey=springpetclinic16'
+                } // You can override the credential to be used
+            } 
+        }
         stage('Build'){
             steps{
                 sh 'mvn package'
