@@ -1,6 +1,6 @@
 pipeline{
     agent{label 'AGENT'}
-    trigeers{pollSCM('* * * * *')}
+    triggers{pollSCM('* * * * *')}
     stages{
         stage('Version Control System'){
             steps{
