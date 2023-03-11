@@ -28,4 +28,18 @@ pipeline{
             }
         }
     }
+    post{
+        success{
+            mail subject: "Jenkins Job of ${JOB_NAME} of build no ${BUILD_ID} is successfull",
+                 body: "For more info click on the URL - ${BUILD_URL}",
+                 from: 'Jenkins@abhish.com',
+                 to: 'abhish9416@outlook.com'
+        }
+        failure{
+            mail subject: "Jenkins Job of ${JOB_NAME} of build no ${BUILD_ID} is fialed",
+                 body: "For more info click on the URL - ${BUILD_URL}",
+                 from: 'Jenkins@abhish.com',
+                 to: 'abhish9416@outlook.com'
+        }
+    }
 }
